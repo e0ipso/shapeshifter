@@ -5,7 +5,7 @@
  * Contains \DataMapperFormatterTestCase.
  */
 
-class DataMapperFormatterTestCase extends DrupalWebTestCase {
+class DataMapperMapperTestCase extends DrupalWebTestCase {
 
   public static function getInfo() {
     return array(
@@ -71,19 +71,14 @@ class DataMapperFormatterTestCase extends DrupalWebTestCase {
           'level2-item0',
           'level2-item1',
           10,
-          FALSE,
-          NULL,
         ),
         'level1-item2',
-        0,
-        TRUE,
-        array(),
       ),
       'level0-item1' => 'done',
     );
     $expected = '<?xml version="1.0"?>';
     $expected .=  PHP_EOL;
-    $expected .= '<data><level0-item0><item-0>level1-item0</item-0><level1-item1><item-0>level2-item0</item-0><item-1>level2-item1</item-1><item-2>10</item-2><item-3/><item-4/></level1-item1><item-1>level1-item2</item-1><item-2>0</item-2><item-3>1</item-3><item-4/></level0-item0><level0-item1>done</level0-item1></data>';
+    $expected .= '<data><level0-item0><item-0>level1-item0</item-0><level1-item1><item-0>level2-item0</item-0><item-1>level2-item1</item-1><item-2>10</item-2></level1-item1><item-1>level1-item2</item-1></level0-item0><level0-item1>done</level0-item1></data>';
     $expected .=  PHP_EOL;
 
     $encoded = $formatter->format($data);
