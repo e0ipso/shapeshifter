@@ -1,0 +1,90 @@
+<?php
+
+/**
+ * @file
+ * Module implementation file.
+ */
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function data_mapper_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'data_mapper') {
+    return 'plugins/data_mapper/' . $plugin;
+  }
+}
+
+/**
+ * Implements hook_ctools_plugin_type().
+ */
+function data_mapper_ctools_plugin_type() {
+  $plugins['mapper'] = $plugins['formatter'] = array(
+    'classes' => array('class'),
+    'process' => 'data_mapper_plugin_process',
+  );
+  return $plugins;
+}
+
+/**
+ * Adds default values to plugin definitions.
+ */
+function data_mapper_plugin_process(&$plugin, $info) {
+  if ($info['type'] == 'mapper' || $info['type'] == 'formatter') {
+    // Set some defaults for the plugin definitions.
+  }
+}
+
+/**
+ * Include CTools plugins and get all mapper plugins.
+ *
+ * @return array
+ *   All plugins for forms.
+ */
+function data_mapper_get_mapper_plugins() {
+  ctools_include('plugins');
+  return ctools_get_plugins('data_mapper', 'mapper');
+}
+
+/**
+ * Include CTools plugins and get all mapper plugins.
+ *
+ * @return array
+ *   All plugins for forms.
+ */
+function data_mapper_get_formatter_plugins() {
+  ctools_include('plugins');
+  return ctools_get_plugins('data_mapper', 'formatter');
+}
+
+/**
+ * Return the handler object based on the plugin name.
+ *
+ * @param string $plugin_name
+ *   Name of the plugin.
+ * @param string $plugin_type
+ *   Type of the plugin to get.
+ *
+ * @return mixed
+ *   The Data Mapper object.
+ */
+function data_mapper_get_plugin_handler($plugin_name, $plugin_type) {
+  $plugin = data_mapper_get_plugin($plugin_name, $plugin_type);
+  $class = ctools_plugin_get_class($plugin, 'class');
+  return new $class($plugin);
+}
+
+/**
+ * Include CTools plugins and get all form plugins.
+ *
+ * @param string $plugin_name
+ *   The name of the plugin to retrieve.
+ * @param string $plugin_type
+ *   Type of the plugin to get.
+ *
+ * @return array
+ *   The specified plugin.
+ */
+function data_mapper_get_plugin($plugin_name, $plugin_type) {
+  ctools_include('plugins');
+  return ctools_get_plugins('data_mapper', $plugin_type, $plugin_name);
+}

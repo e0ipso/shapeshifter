@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Module implementation file.
+ */
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function data_mapper_example_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'data_mapper') {
+    return 'plugins/data_mapper/' . $plugin;
+  }
+}

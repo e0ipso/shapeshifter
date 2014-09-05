@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * @file
+ * Contains \DataMapperFormatterTestCase.
+ */
+
+class DataMapperFormatterTestCase extends DrupalWebTestCase {
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Mapper',
+      'description' => 'Test the mappers.',
+      'group' => 'Data Mapper',
+    );
+  }
+
+  /**
+   * Set up the test.
+   */
+  public function setUp() {
+    parent::setUp('data_mapper');
+  }
+
+}

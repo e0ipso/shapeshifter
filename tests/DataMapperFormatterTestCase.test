@@ -1,0 +1,96 @@
+<?php
+
+/**
+ * @file
+ * Contains \DataMapperFormatterTestCase.
+ */
+
+class DataMapperFormatterTestCase extends DrupalWebTestCase {
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Formatter',
+      'description' => 'Test the formatters.',
+      'group' => 'Data Mapper',
+    );
+  }
+
+  /**
+   * Set up the test.
+   */
+  public function setUp() {
+    parent::setUp('data_mapper');
+  }
+
+  /**
+   * Test the JSON formatter.
+   */
+  public function testJsonFormatter() {
+    /** @var \DataMapperJsonFormatter $formatter */
+    $formatter = data_mapper_get_plugin_handler('json', 'formatter');
+
+    // Setup a data array to encode.
+    $data = array(
+      'level0-item0' => array(
+        'level1-item0',
+        'level1-item1' => array(
+          'level2-item0',
+          'level2-item1',
+          10,
+          FALSE,
+          NULL,
+        ),
+        'level1-item2',
+        0,
+        TRUE,
+        array(),
+      ),
+      'level0-item1' => 'done',
+    );
+    $expected = '{"level0-item0":{"0":"level1-item0","level1-item1":["level2-item0","level2-item1",10,false,null],"1":"level1-item2","2":0,"3":true,"4":[]},"level0-item1":"done"}';
+
+    $encoded = $formatter->format($data);
+    $this->assertEqual($encoded, $expected, t('Data array correctly encoded in JSON format. Encoded @encoded is equal to expected @expected.', array(
+      '@encoded' => $encoded,
+      '@expected' => $expected,
+    )));
+  }
+
+  /**
+   * Test the JSON formatter.
+   */
+  public function testXmlFormatter() {
+    /** @var \DataMapperJsonFormatter $formatter */
+    $formatter = data_mapper_get_plugin_handler('xml', 'formatter');
+
+    // Setup a data array to encode.
+    $data = array(
+      'level0-item0' => array(
+        'level1-item0',
+        'level1-item1' => array(
+          'level2-item0',
+          'level2-item1',
+          10,
+          FALSE,
+          NULL,
+        ),
+        'level1-item2',
+        0,
+        TRUE,
+        array(),
+      ),
+      'level0-item1' => 'done',
+    );
+    $expected = '<?xml version="1.0"?>';
+    $expected .=  PHP_EOL;
+    $expected .= '<data><level0-item0><item-0>level1-item0</item-0><level1-item1><item-0>level2-item0</item-0><item-1>level2-item1</item-1><item-2>10</item-2><item-3/><item-4/></level1-item1><item-1>level1-item2</item-1><item-2>0</item-2><item-3>1</item-3><item-4/></level0-item0><level0-item1>done</level0-item1></data>';
+    $expected .=  PHP_EOL;
+
+    $encoded = $formatter->format($data);
+    $this->assertEqual($encoded, $expected, t('Data array correctly encoded in XML format. Encoded @encoded is equal to expected @expected.', array(
+      '@encoded' => $encoded,
+      '@expected' => $expected,
+    )));
+  }
+
+}
