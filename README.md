@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/mateu-aguilo-bosch/data_mapper.svg?branch=7-x-1.x)](https://travis-ci.org/mateu-aguilo-bosch/data_mapper) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mateu-aguilo-bosch/data_mapper/badges/quality-score.png?b=7-x-1.x)](https://scrutinizer-ci.com/g/mateu-aguilo-bosch/data_mapper/?branch=7-x-1.x)
+
 # Data Mapper
 
 This module aims to solve a generic problem when working with data
