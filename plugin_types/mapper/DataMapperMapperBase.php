@@ -77,7 +77,7 @@ abstract class DataMapperMapperBase extends \DataMapperPluginBase implements \Da
   public function __construct(array $plugin) {
     // Set the plugin.
     parent::__construct($plugin);
-    if (!$this->entityType = $this->getPuginInfo('entity_type')) {
+    if (!$this->entityType = (string) $this->getPuginInfo('entity_type')) {
       throw new DataMapperMapperException('No entity type defined in the plugin definition.');
     }
     $paths = array_keys(static::getMappingsInfo());
