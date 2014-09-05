@@ -160,7 +160,6 @@ abstract class DataMapperMapperBase extends \DataMapperPluginBase implements \Da
       }
 
       $method = $info['wrapper_method'];
-      $resource = $info['resource'];
 
       if ($sub_wrapper instanceof EntityListWrapper) {
         // Multiple value.

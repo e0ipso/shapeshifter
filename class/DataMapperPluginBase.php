@@ -30,7 +30,7 @@ class DataMapperPluginBase {
    * @param string $key
    *   The plugin property to get. NULL to get all properties.
    *
-   * @return array
+   * @return mixed
    *   The plugin definition for the selected property or all properties.
    *
    * @throws \DataMapperException
