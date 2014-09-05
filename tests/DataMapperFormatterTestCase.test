@@ -5,7 +5,7 @@
  * Contains \DataMapperFormatterTestCase.
  */
 
-class DataMapperFormatterTestCase extends DrupalWebTestCase {
+class DataMapperMapperTestCase extends DrupalWebTestCase {
 
   public static function getInfo() {
     return array(
