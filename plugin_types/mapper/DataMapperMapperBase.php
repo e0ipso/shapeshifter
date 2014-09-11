@@ -52,7 +52,7 @@ abstract class DataMapperMapperBase extends \DataMapperPluginBase implements \Da
    */
   public function setEntityId($entityId) {
     // This resets the currently loaded entity.
-    $this->entity = NULL;
+    $this->setEntity(NULL);
     $this->entityId = $entityId;
   }
 
@@ -63,6 +63,24 @@ abstract class DataMapperMapperBase extends \DataMapperPluginBase implements \Da
    */
   public function getEntityId() {
     return $this->entityId;
+  }
+
+  /**
+   * Sets the entity
+   *
+   * @param mixed $entity
+   */
+  public function setEntity($entity) {
+    $this->entity = $entity;
+  }
+
+  /**
+   * Gets the entity.
+   *
+   * @return mixed
+   */
+  public function getEntity() {
+    return $this->entity;
   }
 
   /**
@@ -160,7 +178,6 @@ abstract class DataMapperMapperBase extends \DataMapperPluginBase implements \Da
       }
 
       $method = $info['wrapper_method'];
-      $resource = $info['resource'];
 
       if ($sub_wrapper instanceof EntityListWrapper) {
         // Multiple value.
@@ -252,13 +269,13 @@ abstract class DataMapperMapperBase extends \DataMapperPluginBase implements \Da
    * @throws \DataMapperMapperException
    */
   protected function getEntityWrapper() {
-    if (empty($this->entity)) {
+    if (empty($this->getEntity())) {
       if (!$id = $this->getEntityId()) {
         throw new \DataMapperMapperException('You need to set the ID of the entity before you can map it.');
       }
-      $this->entity = entity_load_single($this->entityType, $id);
+      $this->setEntity(entity_load_single($this->entityType, $id))
     }
-    return entity_metadata_wrapper($this->entityType, $this->entity);
+    return entity_metadata_wrapper($this->entityType, $this->getEntity());
   }
 
 }
