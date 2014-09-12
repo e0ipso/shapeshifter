@@ -65,12 +65,34 @@ function data_mapper_get_formatter_plugins() {
  *   Type of the plugin to get.
  *
  * @return mixed
- *   The Data Mapper object.
+ *   The handler object.
  */
 function data_mapper_get_plugin_handler($plugin_name, $plugin_type) {
   $plugin = data_mapper_get_plugin($plugin_name, $plugin_type);
   $class = ctools_plugin_get_class($plugin, 'class');
   return new $class($plugin);
+}
+
+/**
+ * Returns the mapper handler object based on the entity type and bundle.
+ *
+ * @param string $entity_type
+ *   The type of entity.
+ * @param string $bundle
+ *   The entity bundle.
+ *
+ * @return \DataMapperMapperBase
+ *   The Data Mapper object.
+ */
+function data_mapper_get_mapper_handler($entity_type, $bundle) {
+  foreach (ctools_get_plugins('data_mapper', 'mapper') as $plugin_name => $plugin) {
+    if ($plugin['entity_type'] != $entity_type || $plugin['bundle'] != $bundle) {
+      continue;
+    }
+    $class = ctools_plugin_get_class($plugin, 'class');
+    return new $class($plugin);
+  }
+  return NULL;
 }
 
 /**

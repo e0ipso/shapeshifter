@@ -269,13 +269,14 @@ abstract class DataMapperMapperBase extends \DataMapperPluginBase implements \Da
    * @throws \DataMapperMapperException
    */
   protected function getEntityWrapper() {
-    if (empty($this->getEntity())) {
+    $entity = $this->getEntity();
+    if (empty($entity)) {
       if (!$id = $this->getEntityId()) {
         throw new \DataMapperMapperException('You need to set the ID of the entity before you can map it.');
       }
-      $this->setEntity(entity_load_single($this->entityType, $id))
+      $this->setEntity(entity_load_single($this->entityType, $id));
     }
-    return entity_metadata_wrapper($this->entityType, $this->getEntity());
+    return entity_metadata_wrapper($this->entityType, $entity);
   }
 
 }
