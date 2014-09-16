@@ -5,7 +5,7 @@
  * Contains \ShapeshifterPluginBase.
  */
 
-class ShapeshifterPluginBase {
+abstract class ShapeshifterPluginBase {
 
   /**
    * @var array
