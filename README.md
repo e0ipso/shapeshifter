@@ -1,6 +1,8 @@
-[![Build Status](https://travis-ci.org/mateu-aguilo-bosch/shapeshifter.svg?branch=7-x-1.x)](https://travis-ci.org/mateu-aguilo-bosch/shapeshifter) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mateu-aguilo-bosch/shapeshifter/badges/quality-score.png?b=7-x-1.x)](https://scrutinizer-ci.com/g/mateu-aguilo-bosch/shapeshifter/?branch=7-x-1.x)
+[![Build Status](https://travis-ci.org/mateu-aguilo-bosch/shapeshifter.svg?branch=7-x-1.x)](https://travis-ci.org/mateu-aguilo-bosch/shapeshifter) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mateu-aguilo-bosch/shapeshifter/badges/quality-score.png?b=7.x-1.x)](https://scrutinizer-ci.com/g/mateu-aguilo-bosch/shapeshifter/?branch=7.x-1.x)
 
 # Shapeshifter
+
+![Shapeshifter](http://www.animaatjes.nl/plaatjes/m/my_little_pony/animaatjes-my_little_pony-83953.png)
 
 This module aims to solve a generic problem when working with data
 transformations, _how do I generate a certain data structure from my entity_.
