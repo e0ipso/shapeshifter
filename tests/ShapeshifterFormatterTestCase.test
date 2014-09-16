@@ -5,7 +5,7 @@
  * Contains \ShapeshifterFormatterTestCase.
  */
 
-class ShapeshifterMapperTestCase extends DrupalWebTestCase {
+class ShapeshifterFormatterTestCase extends DrupalUnitTestCase {
 
   public static function getInfo() {
     return array(
