@@ -2,15 +2,15 @@
 
 /**
  * @file
- * Contains \DataMapperMapperBase.
+ * Contains \ShapeshifterMapperBase.
  */
 
-abstract class DataMapperMapperBase extends \DataMapperPluginBase implements \DataMapperMapperInterface {
+abstract class ShapeshifterMapperBase extends \ShapeshifterPluginBase implements \ShapeshifterMapperInterface {
 
   /**
    * Constant to inform about an unprocessed mapping.
    */
-  const UNPROCESSED = 'DataMapperBase::missing-value';
+  const UNPROCESSED = 'ShapeshifterBase::missing-value';
 
   /**
    * Path separator string.
@@ -89,14 +89,14 @@ abstract class DataMapperMapperBase extends \DataMapperPluginBase implements \Da
    * @param array $plugin
    *   The plugin definition array.
    *
-   * @throws \DataMapperMapperException
+   * @throws \ShapeshifterMapperException
    *  When there is no entity type defined in the plugin definition.
    */
   public function __construct(array $plugin) {
     // Set the plugin.
     parent::__construct($plugin);
     if (!$this->entityType = $this->getPuginInfo('entity_type')) {
-      throw new DataMapperMapperException('No entity type defined in the plugin definition.');
+      throw new ShapeshifterMapperException('No entity type defined in the plugin definition.');
     }
     $paths = array_keys(static::getMappingsInfo());
     foreach ($paths as $path) {
@@ -118,10 +118,10 @@ abstract class DataMapperMapperBase extends \DataMapperPluginBase implements \Da
   /**
    * {@inheritdoc}
    */
-  public function addMapping($path, $value = \DataMapperMapperBase::UNPROCESSED) {
+  public function addMapping($path, $value = \ShapeshifterMapperBase::UNPROCESSED) {
     if (empty($path)) {
       if (!is_array($value)) {
-        throw new \DataMapperMapperException('Cannot map to an empty path.');
+        throw new \ShapeshifterMapperException('Cannot map to an empty path.');
       }
       $this->output = drupal_array_merge_deep($this->output, $value);
       return;
@@ -138,7 +138,7 @@ abstract class DataMapperMapperBase extends \DataMapperPluginBase implements \Da
     // This is where the juicy meat is.
     $mappings_info = static::getMappingsInfo();
     if (empty($mappings_info[$path])) {
-      throw new \DataMapperMapperException(format_string('There is no mapping for the requested path "@path".', array(
+      throw new \ShapeshifterMapperException(format_string('There is no mapping for the requested path "@path".', array(
         '@path' => $path,
       )));
     }
@@ -156,13 +156,7 @@ abstract class DataMapperMapperBase extends \DataMapperPluginBase implements \Da
     $wrapper = $this->getEntityWrapper();
     $value = NULL;
     if ($info['callback']) {
-      // Calling a callback to receive the value.
-      if (!is_callable($info['callback'])) {
-        $callback_name = is_array($info['callback']) ? $info['callback'][1] : $info['callback'];
-        throw new Exception(format_string('Process callback function: @callback does not exists.', array('@callback' => $callback_name)));
-      }
-
-      $value = call_user_func($info['callback'], $wrapper);
+      $value = static::executeCallback($info['callback'], array($wrapper));
     }
     else {
       // Exposing an entity field.
@@ -172,7 +166,7 @@ abstract class DataMapperMapperBase extends \DataMapperPluginBase implements \Da
 
       // Check user has access to the property.
       if ($property && !$this->checkPropertyAccess($sub_wrapper, 'view')) {
-        throw new \DataMapperMapperException(format_string('Permission denied for property "@property".', array(
+        throw new \ShapeshifterMapperException(format_string('Permission denied for property "@property".', array(
           '@property' => $property,
         )));
       }
@@ -202,18 +196,46 @@ abstract class DataMapperMapperBase extends \DataMapperPluginBase implements \Da
     }
 
     if ($value && !empty($info['process_callbacks'])) {
-      foreach ($info['process_callbacks'] as $callback) {
-        if (!is_callable($callback)) {
-          $callback_name = is_array($callback) ? $callback[1] : $callback;
-          throw new \DataMapperMapperException(format_string('Process callback function: @callback does not exists.', array(
-            '@callback' => $callback_name,
-          )));
-        }
-
-        $value = call_user_func($callback, $value);
+      foreach ($info['process_callbacks'] as $process_callback) {
+        $value = static::executeCallback($process_callback, array($value));
       }
     }
     return $value;
+  }
+
+  /**
+   * Execute a user callback.
+   *
+   * @param mixed $callback
+   *   There are 3 ways to define a callback:
+   *     - String with a function name. Ex: 'drupal_map_assoc'.
+   *     - An array containing an object and a method name of that object.
+   *       Ex: array($this, 'format').
+   *     - An array containing any of the methods before and an array of
+   *       parameters to pass to the callback.
+   *       Ex: array(array($this, 'processing'), array('param1', 2))
+   * @param array $params
+   *   Array of additional parameters to pass in.
+   *
+   * @return mixed
+   *   The return value of the callback.
+   *
+   * @throws \ShapeshifterMapperException
+   */
+  public static function executeCallback($callback, array $params = array()) {
+    if (!is_callable($callback)) {
+      if (is_array($callback) && count($callback) == 2 && is_array($callback[1])) {
+        // This code deals with the third scenario in the docblock. Get the
+        // callback and the parameters from the array, merge the parameters with
+        // the existing ones and call recursively to reuse the logic for the
+        // other cases.
+        return static::executeCallback($callback[0], array_merge($params, $callback[1]));
+      }
+      $callback_name = is_array($callback) ? $callback[1] : $callback;
+      throw new \ShapeshifterMapperException(format_string('Callback function: @callback does not exists.', array('@callback' => $callback_name)));
+    }
+
+    return call_user_func_array($callback, $params);
   }
 
   /**
@@ -266,13 +288,13 @@ abstract class DataMapperMapperBase extends \DataMapperPluginBase implements \Da
    *   The wrapper.
    *
    * @throws \EntityMetadataWrapperException
-   * @throws \DataMapperMapperException
+   * @throws \ShapeshifterMapperException
    */
   protected function getEntityWrapper() {
     $entity = $this->getEntity();
     if (empty($entity)) {
       if (!$id = $this->getEntityId()) {
-        throw new \DataMapperMapperException('You need to set the ID of the entity before you can map it.');
+        throw new \ShapeshifterMapperException('You need to set the ID of the entity before you can map it.');
       }
       $this->setEntity(entity_load_single($this->entityType, $id));
     }

@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains \DataMapperPluginBase.
+ * Contains \ShapeshifterPluginBase.
  */
 
-class DataMapperPluginBase {
+class ShapeshifterPluginBase {
 
   /**
    * @var array
@@ -33,7 +33,7 @@ class DataMapperPluginBase {
    * @return array
    *   The plugin definition for the selected property or all properties.
    *
-   * @throws \DataMapperException
+   * @throws \ShapeshifterException
    */
   public function getPuginInfo($key = NULL) {
     if (empty($key)) {
@@ -43,7 +43,7 @@ class DataMapperPluginBase {
       return $this->plugin[$key];
     }
     // If we could not find the property throw an exception.
-    throw new \DataMapperException(format_string('The selected plugin property "@property" does not exist.', array(
+    throw new \ShapeshifterException(format_string('The selected plugin property "@property" does not exist.', array(
       '@property' => $key,
     )));
   }

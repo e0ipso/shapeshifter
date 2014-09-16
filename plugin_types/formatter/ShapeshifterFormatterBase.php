@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains \DataMapperFormatter.
+ * Contains \ShapeshifterFormatter.
  */
 
-abstract class DataMapperFormatterBase extends \DataMapperPluginBase implements \DataMapperFormatterInterface {
+abstract class ShapeshifterFormatterBase extends \ShapeshifterPluginBase implements \ShapeshifterFormatterInterface {
 
   /**
    * {@inheritdoc}

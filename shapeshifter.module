@@ -8,19 +8,19 @@
 /**
  * Implements hook_ctools_plugin_directory().
  */
-function data_mapper_ctools_plugin_directory($module, $plugin) {
-  if ($module == 'data_mapper') {
-    return 'plugins/data_mapper/' . $plugin;
+function shapeshifter_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'shapeshifter') {
+    return 'plugins/shapeshifter/' . $plugin;
   }
 }
 
 /**
  * Implements hook_ctools_plugin_type().
  */
-function data_mapper_ctools_plugin_type() {
+function shapeshifter_ctools_plugin_type() {
   $plugins['mapper'] = $plugins['formatter'] = array(
     'classes' => array('class'),
-    'process' => 'data_mapper_plugin_process',
+    'process' => 'shapeshifter_plugin_process',
   );
   return $plugins;
 }
@@ -28,7 +28,7 @@ function data_mapper_ctools_plugin_type() {
 /**
  * Adds default values to plugin definitions.
  */
-function data_mapper_plugin_process(&$plugin, $info) {
+function shapeshifter_plugin_process(&$plugin, $info) {
   if ($info['type'] == 'mapper' || $info['type'] == 'formatter') {
     // Set some defaults for the plugin definitions.
   }
@@ -40,9 +40,9 @@ function data_mapper_plugin_process(&$plugin, $info) {
  * @return array
  *   All plugins for forms.
  */
-function data_mapper_get_mapper_plugins() {
+function shapeshifter_get_mapper_plugins() {
   ctools_include('plugins');
-  return ctools_get_plugins('data_mapper', 'mapper');
+  return ctools_get_plugins('shapeshifter', 'mapper');
 }
 
 /**
@@ -51,9 +51,9 @@ function data_mapper_get_mapper_plugins() {
  * @return array
  *   All plugins for forms.
  */
-function data_mapper_get_formatter_plugins() {
+function shapeshifter_get_formatter_plugins() {
   ctools_include('plugins');
-  return ctools_get_plugins('data_mapper', 'formatter');
+  return ctools_get_plugins('shapeshifter', 'formatter');
 }
 
 /**
@@ -67,8 +67,8 @@ function data_mapper_get_formatter_plugins() {
  * @return mixed
  *   The handler object.
  */
-function data_mapper_get_plugin_handler($plugin_name, $plugin_type) {
-  $plugin = data_mapper_get_plugin($plugin_name, $plugin_type);
+function shapeshifter_get_plugin_handler($plugin_name, $plugin_type) {
+  $plugin = shapeshifter_get_plugin($plugin_name, $plugin_type);
   $class = ctools_plugin_get_class($plugin, 'class');
   return new $class($plugin);
 }
@@ -81,11 +81,11 @@ function data_mapper_get_plugin_handler($plugin_name, $plugin_type) {
  * @param string $bundle
  *   The entity bundle.
  *
- * @return \DataMapperMapperBase
- *   The Data Mapper object.
+ * @return \ShapeshifterMapperBase
+ *   The Shapeshifter object.
  */
-function data_mapper_get_mapper_handler($entity_type, $bundle) {
-  foreach (ctools_get_plugins('data_mapper', 'mapper') as $plugin_name => $plugin) {
+function shapeshifter_get_mapper_handler($entity_type, $bundle) {
+  foreach (ctools_get_plugins('shapeshifter', 'mapper') as $plugin_name => $plugin) {
     if ($plugin['entity_type'] != $entity_type || $plugin['bundle'] != $bundle) {
       continue;
     }
@@ -106,7 +106,7 @@ function data_mapper_get_mapper_handler($entity_type, $bundle) {
  * @return array
  *   The specified plugin.
  */
-function data_mapper_get_plugin($plugin_name, $plugin_type) {
+function shapeshifter_get_plugin($plugin_name, $plugin_type) {
   ctools_include('plugins');
-  return ctools_get_plugins('data_mapper', $plugin_type, $plugin_name);
+  return ctools_get_plugins('shapeshifter', $plugin_type, $plugin_name);
 }

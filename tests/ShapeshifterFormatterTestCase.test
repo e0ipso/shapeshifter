@@ -2,16 +2,16 @@
 
 /**
  * @file
- * Contains \DataMapperFormatterTestCase.
+ * Contains \ShapeshifterFormatterTestCase.
  */
 
-class DataMapperMapperTestCase extends DrupalWebTestCase {
+class ShapeshifterMapperTestCase extends DrupalWebTestCase {
 
   public static function getInfo() {
     return array(
       'name' => 'Formatter',
       'description' => 'Test the formatters.',
-      'group' => 'Data Mapper',
+      'group' => 'Shapeshifter',
     );
   }
 
@@ -19,15 +19,15 @@ class DataMapperMapperTestCase extends DrupalWebTestCase {
    * Set up the test.
    */
   public function setUp() {
-    parent::setUp('data_mapper');
+    parent::setUp('shapeshifter');
   }
 
   /**
    * Test the JSON formatter.
    */
   public function testJsonFormatter() {
-    /** @var \DataMapperJsonFormatter $formatter */
-    $formatter = data_mapper_get_plugin_handler('json', 'formatter');
+    /** @var \ShapeshifterJsonFormatter $formatter */
+    $formatter = shapeshifter_get_plugin_handler('json', 'formatter');
 
     // Setup a data array to encode.
     $data = array(
@@ -60,8 +60,8 @@ class DataMapperMapperTestCase extends DrupalWebTestCase {
    * Test the JSON formatter.
    */
   public function testXmlFormatter() {
-    /** @var \DataMapperJsonFormatter $formatter */
-    $formatter = data_mapper_get_plugin_handler('xml', 'formatter');
+    /** @var \ShapeshifterJsonFormatter $formatter */
+    $formatter = shapeshifter_get_plugin_handler('xml', 'formatter');
 
     // Setup a data array to encode.
     $data = array(

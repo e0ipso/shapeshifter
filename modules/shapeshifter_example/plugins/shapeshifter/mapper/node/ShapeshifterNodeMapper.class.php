@@ -2,13 +2,13 @@
 
 /**
  * @file
- * Contains \DataMapperNodeMapper
+ * Contains \ShapeshifterNodeMapper
  */
 
-class DataMapperNodeMapper extends \DataMapperMapperBase {
+class ShapeshifterNodeMapper extends \ShapeshifterMapperBase {
 
   /**
-   * Implements \DataMapperMapperBase::getMappingInfo().
+   * Implements \ShapeshifterMapperBase::getMappingInfo().
    */
   public static function getMappingsInfo() {
     return array(

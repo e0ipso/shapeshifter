@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains \DataMapperXmlFormatter.
+ * Contains \ShapeshifterXmlFormatter.
  */
 
-class DataMapperXmlFormatter extends \DataMapperFormatterBase {
+class ShapeshifterXmlFormatter extends \ShapeshifterFormatterBase {
 
   /**
    * XML needs a single container element.
@@ -62,7 +62,7 @@ class DataMapperXmlFormatter extends \DataMapperFormatterBase {
   }
 
   /**
-   * Transforms a key to be a valid XML node.
+   * Shapeshifters a key to be a valid XML node.
    *
    * @param mixed $key
    *   The key to sanitize.

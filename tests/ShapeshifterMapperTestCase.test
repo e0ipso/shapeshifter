@@ -2,16 +2,16 @@
 
 /**
  * @file
- * Contains \DataMapperFormatterTestCase.
+ * Contains \ShapeshifterFormatterTestCase.
  */
 
-class DataMapperFormatterTestCase extends DrupalWebTestCase {
+class ShapeshifterFormatterTestCase extends DrupalWebTestCase {
 
   public static function getInfo() {
     return array(
       'name' => 'Mapper',
       'description' => 'Test the mappers.',
-      'group' => 'Data Mapper',
+      'group' => 'Shapeshifter',
     );
   }
 
@@ -19,7 +19,7 @@ class DataMapperFormatterTestCase extends DrupalWebTestCase {
    * Set up the test.
    */
   public function setUp() {
-    parent::setUp('data_mapper');
+    parent::setUp('shapeshifter');
   }
 
 }

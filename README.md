@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/mateu-aguilo-bosch/data_mapper.svg?branch=7-x-1.x)](https://travis-ci.org/mateu-aguilo-bosch/data_mapper) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mateu-aguilo-bosch/data_mapper/badges/quality-score.png?b=7-x-1.x)](https://scrutinizer-ci.com/g/mateu-aguilo-bosch/data_mapper/?branch=7-x-1.x)
+[![Build Status](https://travis-ci.org/mateu-aguilo-bosch/shapeshifter.svg?branch=7-x-1.x)](https://travis-ci.org/mateu-aguilo-bosch/shapeshifter) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mateu-aguilo-bosch/shapeshifter/badges/quality-score.png?b=7-x-1.x)](https://scrutinizer-ci.com/g/mateu-aguilo-bosch/shapeshifter/?branch=7-x-1.x)
 
-# Data Mapper
+# Shapeshifter
 
 This module aims to solve a generic problem when working with data
 transformations, _how do I generate a certain data structure from my entity_.
@@ -41,7 +41,7 @@ array structure to the actual information in the article node. That looks like:
 
 ```php
   /**
-   * Implements \DataMapperMapperBase::getMappingInfo().
+   * Implements \ShapeshifterMapperBase::getMappingInfo().
    */
   public static function getMappingsInfo() {
     return array(
@@ -109,7 +109,7 @@ Following our example, if we wanted to display the array info in a page:
  * Page callback for /mapper/{nid}.
  */
 function my_module_page_callback($nid) {
-  $mapper = data_mapper_get_plugin_handler('plugin_name', 'mapper');
+  $mapper = shapeshifter_get_plugin_handler('plugin_name', 'mapper');
   $mapper->setEntityId($nid);
 
   return '<pre>' . print_r($mapper->map(), TRUE) . '</pre>';
@@ -130,7 +130,7 @@ To encode an array just do:
  * Page callback for /mapper/{nid}.
  */
 function my_module_page_callback($nid) {
-  $mapper = data_mapper_get_plugin_handler('plugin_name', 'mapper');
+  $mapper = shapeshifter_get_plugin_handler('plugin_name', 'mapper');
   $mapper->setEntityId($nid);
 
   // The array that we want to output.
@@ -138,7 +138,7 @@ function my_module_page_callback($nid) {
 
   // Create the formatter change 'json' to 'xml' or to your formatter plugin
   // name to use different output formats.
-  $formatter = data_mapper_get_plugin_handler('json', 'formatter');
+  $formatter = shapeshifter_get_plugin_handler('json', 'formatter');
 
   return '<pre>' . $formatter->format($data) . '</pre>';
 }
@@ -154,7 +154,7 @@ to implement the `prepare()` method in your custom formatter plugin.
 ```php
   ...
   /**
-   * Overwrites \DataMapperFormatterBase::prepare().
+   * Overwrites \ShapeshifterFormatterBase::prepare().
    */
   public function prepare(array $data) {
     return array(

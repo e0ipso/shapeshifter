@@ -1,4 +1,4 @@
-name = Data Mapper integration example module
+name = Shapeshifter integration example module
 description = Shows an example of how to write an integration module.
 core = 7.x
-dependencies[] = data_mapper
+dependencies[] = shapeshifter

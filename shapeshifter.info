@@ -1,0 +1,22 @@
+name = Shapeshifter
+description = Maps entities to generic structures.
+core = 7.x
+
+dependencies[] = entity
+dependencies[] = ctools
+
+; Files
+files[] = class/ShapeshifterException.php
+files[] = class/ShapeshifterFormatterException.php
+files[] = class/ShapeshifterMapperException.php
+files[] = class/ShapeshifterPluginBase.php
+
+; Plugin types
+files[] = plugin_types/formatter/ShapeshifterFormatterBase.php
+files[] = plugin_types/formatter/ShapeshifterFormatterInterface.php
+files[] = plugin_types/mapper/ShapeshifterMapperBase.php
+files[] = plugin_types/mapper/ShapeshifterMapperInterface.php
+
+; Tests
+files[] = tests/ShapeshifterFormatterTestCase.test
+files[] = tests/ShapeshifterMapperTestCase.test

@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains \DataMapperJsonFormatter.
+ * Contains \ShapeshifterJsonFormatter.
  */
 
-class DataMapperJsonFormatter extends \DataMapperFormatterBase {
+class ShapeshifterJsonFormatter extends \ShapeshifterFormatterBase {
 
   /**
    * {@inheritdoc}

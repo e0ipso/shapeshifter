@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Module implementation file.
+ */
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function shapeshifter_example_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'shapeshifter') {
+    return 'plugins/shapeshifter/' . $plugin;
+  }
+}

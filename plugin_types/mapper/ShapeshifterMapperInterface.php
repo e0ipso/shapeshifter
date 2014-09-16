@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains \DataMapperMapperInterface
+ * Contains \ShapeshifterMapperInterface
  */
 
-interface DataMapperMapperInterface {
+interface ShapeshifterMapperInterface {
 
   /**
    * Maps the entity to the output format.
@@ -13,7 +13,7 @@ interface DataMapperMapperInterface {
    * @return array
    *   The structured array with the selected entity info.
    *
-   * @throws \DataMapperMapperException
+   * @throws \ShapeshifterMapperException
    */
   public function map();
 
@@ -69,10 +69,10 @@ interface DataMapperMapperInterface {
    *   The value to set. If no value is set then the array structure will be
    *   created and filled with UNPROCESSED.
    *
-   * @throws \DataMapperMapperException
+   * @throws \ShapeshifterMapperException
    *   When the structure for the path is not set.
    */
-  public function addMapping($path, $value = \DataMapperMapperBase::UNPROCESSED);
+  public function addMapping($path, $value = \ShapeshifterMapperBase::UNPROCESSED);
 
   /**
    * Gets the value from the entity for the passed in path.
@@ -83,9 +83,9 @@ interface DataMapperMapperInterface {
    * @return mixed
    *   The data value in the entity.
    *
-   * @throws \DataMapperMapperException
+   * @throws \ShapeshifterMapperException
    *
-   * @see \DataMapperMapperInterface::getMappingsInfo().
+   * @see \ShapeshifterMapperInterface::getMappingsInfo().
    */
   public function getValue($path);
 

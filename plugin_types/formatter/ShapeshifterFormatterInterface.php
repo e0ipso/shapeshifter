@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains DataMapperFormatterInterface.
+ * Contains ShapeshifterFormatterInterface.
  */
 
-interface DataMapperFormatterInterface {
+interface ShapeshifterFormatterInterface {
 
   /**
    * Massages the raw data to create a structured array to pass to the renderer.
