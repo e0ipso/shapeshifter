@@ -69,6 +69,8 @@ interface ShapeshifterMapperInterface {
    *   The value to set. If no value is set then the array structure will be
    *   created and filled with UNPROCESSED.
    *
+   * @return void
+   *
    * @throws \ShapeshifterMapperException
    *   When the structure for the path is not set.
    */
