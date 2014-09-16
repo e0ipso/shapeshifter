@@ -1,5 +1,6 @@
 name = Shapeshifter
 description = Maps entities to generic structures.
+php = 5.3
 core = 7.x
 
 dependencies[] = entity

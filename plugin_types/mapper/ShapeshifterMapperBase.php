@@ -153,53 +153,20 @@ abstract class ShapeshifterMapperBase extends \ShapeshifterPluginBase implements
       'callback' => FALSE,
     );
 
-    $wrapper = $this->getEntityWrapper();
     $value = NULL;
     if ($info['callback']) {
-      $value = static::executeCallback($info['callback'], array($wrapper));
+      $value = static::executeCallback($info['callback'], array($this->getEntityWrapper()));
     }
     else {
-      // Exposing an entity field.
-      $property = $info['property'];
-
-      $sub_wrapper = $info['wrapper_method_on_entity'] ? $wrapper : $wrapper->{$property};
-
-      // Check user has access to the property.
-      if ($property && !$this->checkPropertyAccess($sub_wrapper, 'view')) {
-        throw new \ShapeshifterMapperException(format_string('Permission denied for property "@property".', array(
-          '@property' => $property,
-        )));
-      }
-
-      $method = $info['wrapper_method'];
-
-      if ($sub_wrapper instanceof EntityListWrapper) {
-        // Multiple value.
-        foreach ($sub_wrapper as $item_wrapper) {
-          if ($info['sub_property'] && $item_wrapper->value()) {
-            $item_wrapper = $item_wrapper->{$info['sub_property']};
-          }
-
-          // Wrapper method.
-          $value[] = $item_wrapper->{$method}();
-        }
-      }
-      else {
-        // Single value.
-        if ($info['sub_property'] && $sub_wrapper->value()) {
-          $sub_wrapper = $sub_wrapper->{$info['sub_property']};
-        }
-
-        // Wrapper method.
-        $value = $sub_wrapper->{$method}();
-      }
+      $value = $this->wrapperMap($info);
     }
 
-    if ($value && !empty($info['process_callbacks'])) {
+    if (!empty($info['process_callbacks'])) {
       foreach ($info['process_callbacks'] as $process_callback) {
         $value = static::executeCallback($process_callback, array($value));
       }
     }
+
     return $value;
   }
 
@@ -299,6 +266,58 @@ abstract class ShapeshifterMapperBase extends \ShapeshifterPluginBase implements
       $this->setEntity(entity_load_single($this->entityType, $id));
     }
     return entity_metadata_wrapper($this->entityType, $entity);
+  }
+
+  /**
+   * Gets a value using the mappings for the Entity Metadata Wrapper.
+   *
+   * @param $info
+   *   The mappings array
+   *
+   * @return mixed
+   *   The mapped value
+   *
+   * @throws \ShapeshifterMapperException
+   */
+  protected function wrapperMap($info) {
+    $value = NULL;
+    // Exposing an entity field.
+    $wrapper = $this->getEntityWrapper();
+    $property = $info['property'];
+
+    $sub_wrapper = $info['wrapper_method_on_entity'] ? $wrapper : $wrapper->{$property};
+
+    // Check user has access to the property.
+    if ($property && !$this->checkPropertyAccess($sub_wrapper, 'view')) {
+      throw new \ShapeshifterMapperException(format_string('Permission denied for property "@property".', array(
+        '@property' => $property,
+      )));
+    }
+
+    $method = $info['wrapper_method'];
+
+    if ($sub_wrapper instanceof EntityListWrapper) {
+      // Multiple value.
+      foreach ($sub_wrapper as $item_wrapper) {
+        if ($info['sub_property'] && $item_wrapper->value()) {
+          $item_wrapper = $item_wrapper->{$info['sub_property']};
+        }
+
+        // Wrapper method.
+        $value[] = $item_wrapper->{$method}();
+      }
+      return $value;
+    }
+    else {
+      // Single value.
+      if ($info['sub_property'] && $sub_wrapper->value()) {
+        $sub_wrapper = $sub_wrapper->{$info['sub_property']};
+      }
+
+      // Wrapper method.
+      $value = $sub_wrapper->{$method}();
+      return $value;
+    }
   }
 
 }
