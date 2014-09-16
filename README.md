@@ -2,6 +2,8 @@
 
 # Shapeshifter
 
+![Shapeshifter](http://www.animaatjes.nl/plaatjes/m/my_little_pony/animaatjes-my_little_pony-83953.png)
+
 This module aims to solve a generic problem when working with data
 transformations, _how do I generate a certain data structure from my entity_.
 Imagine that you want a JSON output like the following for a given article:
