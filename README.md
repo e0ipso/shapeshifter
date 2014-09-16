@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/mateu-aguilo-bosch/shapeshifter.svg?branch=7-x-1.x)](https://travis-ci.org/mateu-aguilo-bosch/shapeshifter) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mateu-aguilo-bosch/shapeshifter/badges/quality-score.png?b=7-x-1.x)](https://scrutinizer-ci.com/g/mateu-aguilo-bosch/shapeshifter/?branch=7-x-1.x)
+[![Build Status](https://travis-ci.org/mateu-aguilo-bosch/shapeshifter.svg?branch=7-x-1.x)](https://travis-ci.org/mateu-aguilo-bosch/shapeshifter) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mateu-aguilo-bosch/shapeshifter/badges/quality-score.png?b=7.x-1.x)](https://scrutinizer-ci.com/g/mateu-aguilo-bosch/shapeshifter/?branch=7.x-1.x)
 
 # Shapeshifter
 
