@@ -110,7 +110,13 @@ abstract class ShapeshifterMapperBase extends \ShapeshifterPluginBase implements
    */
   public function map() {
     foreach (static::getMappingsInfo() as $path => $property_info) {
-      $this->addMapping($path, $this->getValue($path));
+      try {
+        $this->addMapping($path, $this->getValue($path));
+      }
+      catch (Exception $e) {
+        // Many things can go wrong. Log an error and continue.
+        watchdog_exception('shapeshifter', $e);
+      }
     }
     return $this->output;
   }
@@ -264,6 +270,7 @@ abstract class ShapeshifterMapperBase extends \ShapeshifterPluginBase implements
         throw new \ShapeshifterMapperException('You need to set the ID of the entity before you can map it.');
       }
       $this->setEntity(entity_load_single($this->entityType, $id));
+      $entity = $this->getEntity();
     }
     return entity_metadata_wrapper($this->entityType, $entity);
   }
