@@ -116,6 +116,7 @@ abstract class ShapeshifterMapperBase extends \ShapeshifterPluginBase implements
       catch (Exception $e) {
         // Many things can go wrong. Log an error and continue.
         watchdog_exception('shapeshifter', $e);
+        $this->addMapping($path, NULL);
       }
     }
     return $this->output;
