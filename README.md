@@ -1,3 +1,10 @@
+# Deprecation notice
+Shapeshifter has been superseded by [RESTful](https://github.com/RESTful-Drupal/restful). I forked the data extraction part out of RESTful to create Shapeshifter, but it was not a very good move since I could not keep up with the maintenance of both.
+
+RESTful is Shapeshifter + a dynamic hook_menu. That hook menu can be disabled via config, making RESTful into Shapeshifter. That's why I decided to abandon the module development and encourage using RESTful instead. There's **no practical overhead** to use RESTful instead of Shapeshifter.
+
+Long story short, this repo is a good example on an unexpected, but practical, use of RESTful but I don't have plans to release it to d.o.
+
 [![Build Status](https://travis-ci.org/mateu-aguilo-bosch/shapeshifter.svg?branch=7-x-1.x)](https://travis-ci.org/mateu-aguilo-bosch/shapeshifter) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mateu-aguilo-bosch/shapeshifter/badges/quality-score.png?b=7.x-1.x)](https://scrutinizer-ci.com/g/mateu-aguilo-bosch/shapeshifter/?branch=7.x-1.x)
 
 # Shapeshifter
